@@ -91,12 +91,12 @@ static NSString * const kTableViewCellContentView = @"UITableViewCellContentView
     // Add the cell scroll view to the cell
     UIView *contentViewParent = self;
     UIView *clipViewParent = self.cellScrollView;
-    if (![NSStringFromClass([[self.subviews objectAtIndex:0] class]) isEqualToString:kTableViewCellContentView])
-    {
-        // iOS 7
-        contentViewParent = [self.subviews objectAtIndex:0];
-        clipViewParent = self;
-    }
+//    if (![NSStringFromClass([[self.subviews objectAtIndex:0] class]) isEqualToString:kTableViewCellContentView])
+//    {
+//        // iOS 7
+//        contentViewParent = [self.subviews objectAtIndex:0];
+//        clipViewParent = self;
+//    }
     NSArray *cellSubviews = [contentViewParent subviews];
     [self insertSubview:self.cellScrollView atIndex:0];
     for (UIView *subview in cellSubviews)
@@ -187,7 +187,6 @@ static NSString * const kTableViewPanState = @"state";
 
 - (void)dealloc
 {
-    _cellScrollView.delegate = nil;
     [self removeOldTableViewPanObserver];
 }
 
@@ -748,10 +747,6 @@ static NSString * const kTableViewPanState = @"state";
     }
     
     [self updateCellState];
-    
-    if (self.delegate && [self.delegate respondsToSelector:@selector(swipeableTableViewCell:didScroll:)]) {
-        [self.delegate swipeableTableViewCell:self didScroll:scrollView];
-    }
 }
 
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
